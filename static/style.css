@@ -1,0 +1,132 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(45deg, #344068, #25fc9b); /* Smooth gradient */
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+h3 {
+    color: #000000;
+    text-align: center;
+    font-size: 26px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+h4 {
+    color: #000000;
+    text-align: center;
+    font-size: 21px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+h2 {
+    color: #0a0b28;
+    text-align: center;
+    font-size: 22px;
+    margin-top: 20px;
+    font-weight: 500;
+}
+
+.container {
+    width: 100%;
+    max-width: 480px; /* Mobile screen size */
+    background-color: rgba(255, 255, 255, 0.8); /* Light background with transparency */
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+}
+
+input[type="file"] {
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 2px solid #2575fc;
+    border-radius: 8px;
+    width: 100%;
+    background-color: #f4f7fa;
+    color: #333;
+    font-size: 16px;
+}
+
+.button1 {
+    padding: 12px 25px;
+    border: none;
+    background-color: #37065a;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+.button2 {
+    padding: 12px 25px;
+    border: none;
+    background-color: #bc0f0f;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #E64A19;
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    color: #fff;
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+    body {
+        padding: 15px;
+    }
+
+    .container {
+        width: 100%;
+        padding: 20px;
+    }
+
+    h3 {
+        font-size: 24px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    button {
+        font-size: 15px;
+    }
+
+    input[type="file"] {
+        font-size: 15px;
+    }
+}

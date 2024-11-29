@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Upload and Process</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h3>Upload an Audio File</h3>
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" accept=".mp3, .wav, .flac">
+            <button type="submit" class="button1">Upload</button>
+        </form>
+        <br>
+        <h4>Or Record From your device</h4>
+        <form action="" method="POST" enctype="multipart/form-data">
+            <button type="submit" class="button2">Collect Data from device</button>
+        </form>
+
+        {% if audio_length %}
+            <h2>Predicted Type: {{ audio_length }}</h2>
+        {% endif %}
+    </div>
+
+    <footer>
+        <p>&copy; EEE 376 Lung Disease Classification</p>
+    </footer>
+</body>
+</html>
