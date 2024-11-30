@@ -16,9 +16,10 @@ import pickle
 app = Flask(__name__)
 
 # Firebase configurationpytho
-cred = credentials.Certificate('firebase.json')
+#cred = credentials.Certificate('path/to/new/firebase.json')
+
 # Firebase configuration
-firebase_admin.initialize_app(cred, {'storageBucket': 'lungsoundeee.firebasestorage.app'})
+#firebase_admin.initialize_app(cred, {'storageBucket': 'lungsoundeee.firebasestorage.app'})
 
 #Loading Model
 
@@ -54,12 +55,12 @@ def upload_file():
             file.save(filepath)
 
             # Upload file to Firebase Storage
-            bucket = storage.bucket()
-            blob = bucket.blob(filename)
-            blob.upload_from_filename(filepath)
+            #bucket = storage.bucket()
+            #blob = bucket.blob(filename)
+            #blob.upload_from_filename(filepath)
 
-            print(f"File path: {filepath}")
-            print(f"Firebase bucket: {firebase_admin.get_app().name}")
+           # print(f"File path: {filepath}")
+           # print(f"Firebase bucket: {firebase_admin.get_app().name}")
 
 
 
