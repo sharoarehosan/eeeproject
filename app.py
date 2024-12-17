@@ -23,9 +23,6 @@ cred = credentials.Certificate('firebase.json')
 firebase_admin.initialize_app(cred, {'storageBucket': 'lungsoundeee.firebasestorage.app'})
 
 #Loading Model
-
-
-
 # File upload configuration
 UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = {'mp3', 'wav', 'flac'}
@@ -68,7 +65,7 @@ def upload_file():
             filpath = cut_middle(filepath)
             # Process audio to get length
             try:
-                [audio_prediction,classi] = predict(filepath)
+                prediction, probabilities = predict_audio(filpath)
                 #prediction = audio_prediction[:-3].upper()
             except Exception as e:
                 print(f"Error processing audio: {e}")
@@ -78,48 +75,74 @@ def upload_file():
             # Delete the local file after upload
             os.remove(filepath)
 
-            return render_template('index.html', audio_length=audio_prediction)
+            return render_template('index.html', audio_length=prediction,probabilities=probabilities)
         return redirect(url_for('index'))
     except Exception as e:
         return str(e)  # Return error message for debugging
-
-# Function to get audio length
-def features(file_path,sr):
-    y, _ = librosa.load(file_path, sr=sr)
-    y = librosa.effects.preemphasis(y)  # Pre-emphasis for noise reduction
-
-    features = []
-    try:
-        # RMS Energy
-        features.append(np.mean(librosa.feature.rms(y=y)))
-
-        # MFCCs
-        mfccs = np.mean(librosa.feature.mfcc(y=y, sr=sr, n_mfcc=20), axis=1)
-        features.extend(mfccs)
-
-        # Zero Crossing Rate
-        features.append(np.mean(librosa.feature.zero_crossing_rate(y)))
-
-    except Exception as e:
-        print(f"Error extracting features from {file_path}: {e}")
-        return None
-    return features
     
-def predict(file_path):
-    # Load model, encoder, and scaler
-    sr=22050
-    clf, scaler = joblib.load("lung_sound_classifier.pkl")
-    features = features(file_path, sr)
-    if features:
-        features_scaled = scaler.transform([features])
-        prediction = clf.predict(features_scaled)
-        probabilities = clf.predict_proba(features_scaled)[0]  # Get class probabilities
+def predict_audio(audio_path, model_path="lung_sound_classifier.pkl", sr=22050):
+    # Load the model, scaler, and imputer
+    clf, scaler, imputer = joblib.load(model_path)
+    
+    # Extract features from the audio file
+    feats = features(audio_path, sr)
+    if feats:
+        # Handle missing values using the imputer
+        features_imputed = imputer.transform([feats])
+        
+        # Scale the imputed features
+        features_scaled = scaler.transform(features_imputed)
+        
+        # Get the predicted class
+        prediction = clf.predict(features_scaled)[0]
+        
+        # Get class probabilities
+        probabilities = clf.predict_proba(features_scaled)[0]
         class_probabilities = {
             cls: prob for cls, prob in zip(clf.classes_, probabilities)
         }
-        return prediction[0], class_probabilities
+        
+        return prediction, class_probabilities
     else:
         return "Error extracting features.", None
+    
+# Function to get audio length
+def features(audio_path, sr=22050):
+    y, _ = librosa.load(audio_path, sr=sr)
+    y = librosa.effects.preemphasis(y)  # Pre-emphasis for noise reduction
+    features = []
+    try:
+        # Spectral Features
+        features.append(np.mean(librosa.feature.spectral_centroid(y=y, sr=sr)))
+        features.append(np.mean(librosa.feature.spectral_bandwidth(y=y, sr=sr)))
+        features.append(np.mean(librosa.feature.spectral_contrast(y=y, sr=sr)))
+        
+        # Chroma Features
+        chroma = np.mean(librosa.feature.chroma_stft(y=y, sr=sr), axis=1)
+        features.extend(chroma)
+        
+        # MFCCs
+        mfccs = np.mean(librosa.feature.mfcc(y=y, sr=sr, n_mfcc=20), axis=1)
+        features.extend(mfccs)
+        
+        # Zero Crossing Rate
+        features.append(np.mean(librosa.feature.zero_crossing_rate(y)))
+
+        # Entropy of Energy
+        energy = librosa.feature.rms(y=y).flatten()
+        energy_entropy = -np.sum(energy * np.log2(energy + 1e-8))
+        features.append(energy_entropy)
+        
+        # Spectral Roll-off
+        spectral_rolloff = np.mean(librosa.feature.spectral_rolloff(y=y, sr=sr))
+        features.append(spectral_rolloff)
+
+
+
+    except Exception as e:
+        print(f"Error extracting features from {audio_path}: {e}")
+        return None
+    return features
 
 def cut_middle(input_file_path):
     # Load the audio file using pydub

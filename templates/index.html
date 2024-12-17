@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Audio Upload and Process</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
     <div class="container">
         <h3>Upload an Audio File</h3>
@@ -17,13 +19,24 @@
         <h4>Or Record From your device</h4>
         <button class="button2" onclick="window.location.href='https://dspeeeproject.web.app/'">Collect Sound</button>
 
-        {% if audio_length %}
-            <h2>Predicted Type: {{ audio_length }}</h2>
-        {% endif %}
+        <h1>Prediction Result</h1>
+        <p>Prediction: {{ audio_length }}</p>
+
+        <h2>Probabilities:</h2>
+        <ul>
+            {% if probabilities %}
+            {% for class, prob in probabilities.items() %}
+            <li>{{ class }}: {{ prob }}</li>
+            {% endfor %}
+            {% else %}
+            <li>No probabilities available</li>
+            {% endif %}
+        </ul>
     </div>
 
     <footer>
         <p>&copy; EEE 376 Lung Disease Classification</p>
     </footer>
 </body>
+
 </html>
