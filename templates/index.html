@@ -19,19 +19,20 @@
         <h4>Or Record From your device</h4>
         <button class="button2" onclick="window.location.href='https://dspeeeproject.web.app/'">Collect Sound</button>
 
+        {% if audio_length %}
         <h1>Prediction Result</h1>
         <p>Prediction: {{ audio_length }}</p>
+        {% endif %}
 
+        {% if probabilities %}
         <h2>Probabilities:</h2>
         <ul>
-            {% if probabilities %}
             {% for class, prob in probabilities.items() %}
             <li>{{ class }}: {{ prob }}</li>
             {% endfor %}
             {% else %}
-            <li>No probabilities available</li>
-            {% endif %}
         </ul>
+        {% endif %}
     </div>
 
     <footer>
