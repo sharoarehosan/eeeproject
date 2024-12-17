@@ -1,132 +1,94 @@
-/* Basic Reset */
-* {
+/* Set the background of the entire page to white */
+body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Roboto', sans-serif;
-    background: linear-gradient(45deg, #344068, #25fc9b); /* Smooth gradient */
-    color: #fff;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    flex-direction: column;
-}
-
-h3 {
-    color: #000000;
-    text-align: center;
-    font-size: 26px;
-    margin-bottom: 15px;
-    font-weight: 600;
-}
-h4 {
-    color: #000000;
-    text-align: center;
-    font-size: 21px;
-    margin-bottom: 15px;
-    font-weight: 600;
-}
-
-h2 {
-    color: #0a0b28;
-    text-align: center;
-    font-size: 22px;
-    margin-top: 20px;
-    font-weight: 500;
-}
-
-.container {
-    width: 100%;
-    max-width: 480px; /* Mobile screen size */
-    background-color: rgba(255, 255, 255, 0.8); /* Light background with transparency */
-    border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 25px;
-    text-align: center;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 30px;
-}
-
-input[type="file"] {
-    padding: 12px;
-    margin-bottom: 20px;
-    border: 2px solid #2575fc;
-    border-radius: 8px;
-    width: 100%;
-    background-color: #f4f7fa;
+    font-family: Arial, sans-serif;
+    background-color: linear-gradient(135deg, #ece9e6, #ffffff);
+    /* White background */
     color: #333;
-    font-size: 16px;
+    /* Neutral text color for good readability */
 }
 
-.button1 {
-    padding: 12px 25px;
-    border: none;
-    background-color: #37065a;
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 18px;
-    width: 100%;
-    transition: background-color 0.3s ease;
-}
-.button2 {
-    padding: 12px 25px;
-    border: none;
-    background-color: #bc0f0f;
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 18px;
-    width: 100%;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #E64A19;
-}
-
-footer {
+/* Style for the container box */
+.container {
+    max-width: 500px;
+    margin: 50px auto;
+    background-color: #f0f8ff;
+    /* Light blue background for the container */
+    border: 2px solid #007bff;
+    /* Blue border */
+    border-radius: 10px;
+    /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Subtle shadow for depth */
+    padding: 20px;
     text-align: center;
-    margin-top: 40px;
-    color: #fff;
-    font-size: 14px;
-    opacity: 0.7;
 }
 
-/* Mobile Responsiveness */
-@media (max-width: 480px) {
-    body {
-        padding: 15px;
-    }
+/* Headings inside the container */
+.container h3,
+.container h4 {
+    color: #0056b3;
+    /* Slightly darker blue for headings */
+}
 
-    .container {
-        width: 100%;
-        padding: 20px;
-    }
+/* Style the form's input file field */
+input[type="file"] {
+    display: block;
+    margin: 15px auto;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
 
-    h3 {
-        font-size: 24px;
-    }
+/* Style for buttons */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
 
-    h2 {
-        font-size: 20px;
-    }
+/* Primary button style */
+.button1 {
+    background-color: #007bff;
+    /* Blue background */
+    color: white;
+    /* White text */
+}
 
-    button {
-        font-size: 15px;
-    }
+.button1:hover {
+    background-color: #0056b3;
+    /* Darker blue on hover */
+    transform: scale(1.05);
+    /* Slight enlargement on hover */
+}
 
-    input[type="file"] {
-        font-size: 15px;
-    }
+/* Secondary button style */
+.button2 {
+    background-color: #28a745;
+    /* Green background */
+    color: white;
+    /* White text */
+}
+
+.button2:hover {
+    background-color: #1e7e34;
+    /* Darker green on hover */
+    transform: scale(1.05);
+    /* Slight enlargement on hover */
+}
+
+/* Footer styling */
+footer {
+    margin-top: 20px;
+    text-align: center;
+    color: #555;
+    /* Light gray for footer text */
+    font-size: 14px;
 }
